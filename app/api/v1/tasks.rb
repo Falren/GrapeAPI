@@ -15,6 +15,7 @@ module API
         def matched_task
           @matched_task ||= Task.find(params[:id])
         end
+
         params :task_params do
           requires :task, type: Hash do
             requires :title, type: String
@@ -30,6 +31,7 @@ module API
           status(200)
           render(tasks, each_serializer: TasksSerializer)
         end
+        
         desc 'Return task'
         params do
           requires :id, type: String, desc: 'ID of the task'
@@ -38,6 +40,7 @@ module API
           status(201)
           render(matched_task, serializer: TasksSerializer)
         end
+        
         desc 'Create a new task'
         params do
           use(:task_params)
@@ -51,6 +54,7 @@ module API
             error!(task.errors.full_messages, 422)
           end
         end
+
         desc 'Update task'
         params do
           use(:task_params)
@@ -64,6 +68,7 @@ module API
             error!(matched_task.errors.full_messages, 422)
           end
         end
+        
         desc 'Delete task'
         delete ':id' do
           if matched_task.destroy
