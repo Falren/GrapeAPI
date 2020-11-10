@@ -16,6 +16,7 @@ describe API::V1::Tasks, type: :request do
 
   describe 'CREATE task' do
     let(:params) { { params: { task: task_attributes } } }
+    
     subject { -> { post(*request_params) } }
     it { -> { is_expected.to have_http_status(200) } }
   end
@@ -29,7 +30,6 @@ describe API::V1::Tasks, type: :request do
 
   describe 'UPDATE task' do
     let(:params) { { params: { task: task_attributes } } }
-
     before { url << "/#{task.id}" }
 
     subject { -> { patch(*request_params) } }
@@ -38,7 +38,7 @@ describe API::V1::Tasks, type: :request do
 
   describe 'DESTROY task' do
     before { url << "/#{task.id}" }
-
+    
     subject { -> { patch(*request_params) } }
     it { -> { is_expected.to have_http_status(200) } }
   end
